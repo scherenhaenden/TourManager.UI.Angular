@@ -22,7 +22,11 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-            node-version: '12'      
+            node-version: '12'
+      # run my own script
+      - name: Run a multi-line script
+        run: |        
+          sh ./build-app.sh     
   
           
           
