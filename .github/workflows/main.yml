@@ -32,15 +32,17 @@ jobs:
       - name: Run a multi-line script
         run: |        
           sh ./build-app.sh
-      - name: zip files
-      - uses: montudor/action-zip@v0.1.0
+          
+      - name: Create artifact
+        uses: montudor/action-zip@v0.1.0
         with:
-          args: zip -qq -r TourManagerUI-Angular.zip ./dist/TourManagerUI/
+          args: zip -X -r TourManagerUI-Angular.zip ./dist/TourManagerUI/
+      
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./TourManagerUI-Angular.zip
+          file: ./dist/TourManagerUI-Angular.zip
           asset_name: TourManagerUI-Angular.zip
           tag: ${{ github.ref }}
           overwrite: true
