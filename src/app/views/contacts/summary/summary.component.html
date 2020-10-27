@@ -1,0 +1,30 @@
+<div class="row">
+   <div class="container-fluid">
+      <div class="row form-group">
+         <div class="col-md-12">
+            <ng-container *ngFor="let item of listFlatModels; index as i;">
+               <div class="row ml-0 mr-0">
+                  <app-property-input-formular class=" w-100 ml-0 mr-0 mt-1 mb-1" [propertyName]="item.propertyNameOfObject" [propertyValue]="item.propertyValueOfObject"
+                  (propertyValueEmit)="updateValue($event,item.propertyNameOfObject)"
+                  [type]="item.propertyValueOType" 
+                  [id]="i"                  
+                  >
+                  </app-property-input-formular>
+               </div>
+            </ng-container>
+            <div class="row">
+               <ng-container *ngIf="currentVenewId===null">
+                  <button type="button" class="btn btn-primary" (click)="saveInsertedInfo()" >Add New</button>	
+               </ng-container>
+               <button type="button" class="btn btn-primary" (click)="saveInsertedInfo()" >Edit</button>	
+               <button type="button" class="btn btn-primary" (click)="saveInsertedInfo()" >Save</button>	
+               <button type="button" class="btn btn-primary" (click)="saveInsertedInfo()" >Cancel</button>	
+
+               <ng-container *ngIf="currentVenewId!==null">
+                  <button type="button" class="btn btn-primary" (click)="deleteVenue()" >Delete</button>	
+               </ng-container>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

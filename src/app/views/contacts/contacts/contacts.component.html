@@ -1,0 +1,44 @@
+<div class="row h-100">
+<div class="container-fluid">
+<div class="row form-group h-100">
+   <div class="col-md-12">
+      <div class="row m-0 h-100 d-inline-block w-100" >
+         <div class="" >
+            <table class="table scroballbar-table">
+               <thead>
+                  <tr>
+                     <th scope="col">#</th>
+                     <th scope="col">Firstname</th>
+                     <th scope="col">Lastname</th>
+                     <th scope="col">Telefon</th>
+                     <th scope="col">Email</th>
+                     <th scope="col">Address</th>                     
+                  </tr>
+               </thead>
+               <tbody>
+                  <ng-container *ngFor="let item of listOfEntites; index as i;">
+                     <tr 
+                     (mouseenter)="mouseEnterRow(i);" 
+                     (mouseleave) ="mouseLeaveRow(i);"                        
+                     [ngClass]="{'row-selected-color': rowEntered === i }"
+                     (click)="selectVenewToEdit(item.name);"
+                     >
+                     <th scope="row">{{i}}</th>
+                     <td >{{item.firstName}}</td>
+                     <td >{{item.lastName}}</td>
+                     <td >{{item.telefonNummer}}</td>                     
+                     <td >{{item.email}}</td>
+                     <td >{{item.address}}</td>
+                     </tr>
+                  </ng-container>
+               </tbody>
+            </table>
+            <div>
+               <div class="row">
+                  <button type="button" class="btn btn-primary" (click)="addNew()" >Add</button>	             
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
