@@ -1,0 +1,42 @@
+{
+  "executable": "TourManagerBackEnd",
+  "splashscreen": {
+    "imageFile": ""
+  },
+  "name": "TourManagerBackEnd",
+  "author": "Eddie Krill <john@doe.com>",
+  "singleInstance": false,
+  "aspCoreBackendPort": 9823,
+  "environment": "Production",
+  "build": {
+    "appId": "com.TourManagerBackEnd.app",
+    "productName": "TourManagerBackEnd",
+    "copyright": "Copyright © 2020",
+    "buildVersion": "0.0.1",
+    "compression": "maximum",    
+    "linux": {
+      "target":["zip", "deb"]
+    },
+    "win": {
+      "target":["msi", "nsis", "nsis-web"]
+    },
+    "directories": {
+      "output": "../../../bin/Desktop"
+    },
+    "extraResources": [
+      {
+        "from": "./bin",
+        "to": "bin",
+        "filter": [ "**/*" ]
+      }
+    ],
+    "files": [
+      {
+        "from": "./ElectronHostHook/node_modules",
+        "to": "ElectronHostHook/node_modules",
+        "filter": [ "**/*" ]
+      },
+      "**/*"
+    ]
+  }
+}
