@@ -6,9 +6,9 @@ name: CI
 # events but only for the master branch
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -36,7 +36,7 @@ jobs:
       - name: Create artifact
         uses: montudor/action-zip@v0.1.0
         with:
-          args: zip -X -r TourManagerUI-Angular.zip ./dist/TourManagerUI/
+          args: zip -X -r TourManagerUI-Angular.zip ./AngularApp/dist/TourManagerUI/
       
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
