@@ -43,7 +43,7 @@ namespace TourManagerWeb.Controllers
         [Route("addvenue")]
         public dynamic AddVenue(VenueModel values)
         {            
-            var Venues = new Venues();
+            /*var Venues = new Venues();
 
             Venues.Address = values.Address;
             Venues.contactPersons = values.ContactPersons;
@@ -53,7 +53,8 @@ namespace TourManagerWeb.Controllers
             Venues.TelefonNumber = values.Number;                        
             _tourManagerContext.Venues.Add(Venues);
             _tourManagerContext.SaveChanges();
-            return values;
+            return values;*/
+            return null;
         }
         
         
@@ -65,7 +66,6 @@ namespace TourManagerWeb.Controllers
             var entity = _tourManagerContext.Venues.SingleOrDefault(x => x.Id == id);
             _tourManagerContext.Remove(entity);
             _tourManagerContext.SaveChanges();
-            
             return true;
         }
         
@@ -75,7 +75,7 @@ namespace TourManagerWeb.Controllers
         [Route("UpdateVenue")]
         public dynamic UpdateVenue(VenueModel values)
         {            
-            var Venues = new Venues();
+           /* var Venues = new Venues();
             Venues.Address = values.Address;
             Venues.contactPersons = values.ContactPersons;
             Venues.curfView = DateTime.Now;
@@ -85,7 +85,8 @@ namespace TourManagerWeb.Controllers
             Venues.Id = values.Id;
             _tourManagerContext.Venues.Update(Venues);
             _tourManagerContext.SaveChanges();
-            return values;
+            return values;*/
+           return null;
         }
         
         

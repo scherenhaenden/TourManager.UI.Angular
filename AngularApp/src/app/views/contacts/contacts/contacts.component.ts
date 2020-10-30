@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ContactService } from 'src/app/services/contacts-service';
-import { ContactModel } from './../../../models/contacts/contact-model';
+import { ContactModel } from '../../../models/contact-model';
 
 @Component({
   selector: 'app-contacts',
@@ -51,18 +51,27 @@ export class ContactsComponent implements OnInit {
     }
   }
 
+  public showFirstOrDefaultInArray(values: any[]) : string {
 
-  public selectVenewToEdit(item: any): void {
+    if(values !== undefined && values !== null && values.length >0  ) {
+      return values[0];
+    }
+    return 'empty';
+  }
 
 
-    /*const itemToEdit = this.listOFVenuewsModels
-                  .filter(x => x.name === item)[0];
 
+
+  public selectVenewToEdit(item: ContactModel): void {
+
+    console.log('item', item);
+    const itemToEdit = this.listOfEntites
+                  .filter(x => x.firstName === item.firstName)[0];
 
     const valueId = itemToEdit.id;
 
-    this.router.navigate(['./venues/summary/' + valueId]);
-    console.log('item', item);*/
+    this.router.navigate(['./contacts/summary/' + valueId]);
+    
 
 
   }

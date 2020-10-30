@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ContactModel } from 'src/app/models/contacts/contact-model';
+import { ActivatedRoute } from '@angular/router';
+import { ContactModel } from 'src/app/models/contact-model';
+import { TelefonNumberModel } from 'src/app/models/telefon-number-model';
+import { EmailModel } from 'src/app/models/email-model';
+import { AddressModel } from 'src/app/models/address-model';
 import { ContactService } from 'src/app/services/contacts-service';
 
 @Component({
@@ -13,24 +17,66 @@ export class SummaryComponent implements OnInit {
   public listFlatModels: FlatModel[] = [];
 
   public venuewsModelEmpty: ContactModel = new ContactModel();
-  public venuewsModels: ContactModel = new ContactModel();
+  public contact: ContactModel = new ContactModel();
 
-  constructor(private contactService: ContactService) { }
+  public currentEntityID: number;
+
+  constructor(private contactService: ContactService
+            , private activatedRoute: ActivatedRoute) { 
+
+         
+
+            }
 
   ngOnInit(): void {
+
+    this.getIdOfVenueInUrl();
 
     this.loadVenue();
   }
 
 
-  public updateValue(value: string, propertyToUpdate: string): void {
+  public async getIdOfVenueInUrl():Promise<void> {
 
-    this.venuewsModels[propertyToUpdate.toLocaleLowerCase()] = value;
+    this.activatedRoute.queryParams.subscribe(params => {
+
+      this.currentEntityID = this.activatedRoute.snapshot.params['id'];
+
+      if(this.currentEntityID !== undefined) {
+
+        this.loadValues(this.currentEntityID);
+        return;
+      }
+    });
+
+    this.loadValues(null);
+  }
+
+
+
+  public async loadValues(id: number): Promise<void> {
+
+    if(id !== null) {
+      this.contact = await this.contactService.ShowInformationOfContactById(id);
+    }
+    this.contact.telefonNumbers.push(new TelefonNumberModel());
+    this.contact.emails.push(new EmailModel());
+    this.contact.addresses.push(new AddressModel());
+
+    
+    this.loadVenue();
+  }
+
+
+  public updateValue(value: any, verga?: any): void {
+
+    //this.contact[propertyToUpdate.toLocaleLowerCase()] = value;
   }
 
 
 
   public loadVenue(): void {
+    this.listFlatModels = [];
 
     const keys = Object.keys(this.venuewsModelEmpty);
     const keysWithoutId =  keys.filter(key => key !== 'id');
@@ -38,16 +84,18 @@ export class SummaryComponent implements OnInit {
     for (const i in keysWithoutId) {
 
       if (keysWithoutId.hasOwnProperty(i)) {
+        
         // code here
         const flat = new FlatModel();
         const name = keysWithoutId[i];
 
         let type  = (typeof this.venuewsModelEmpty[name]).toString();
+
         if (type === 'object') {
 
           if ((this.venuewsModelEmpty[name] instanceof Date) ) {
 
-            const value = (this.venuewsModels[name] as Date);
+            const value = (this.contact[name] as Date);
             const final = this.sCdateToJsDate(value);
 
             flat.propertyValueOfObject = final;
@@ -55,13 +103,20 @@ export class SummaryComponent implements OnInit {
             type =  'time';
 
           }
+          else  if ((Array.isArray(this.venuewsModelEmpty[name] )) ) {
+
+            
+
+            flat.propertyValueOfObject = this.contact[name];
+            type =  'array';
+          }
           else{
-            flat.propertyValueOfObject = this.venuewsModels[name];
+            flat.propertyValueOfObject = this.contact[name];
 
           }
         }
         else{
-          flat.propertyValueOfObject = this.venuewsModels[name];
+          flat.propertyValueOfObject = this.contact[name];
         }
         flat.propertyValueOType = type;
         const upperName = name.charAt(0).toUpperCase() + name.slice(1);
@@ -72,9 +127,11 @@ export class SummaryComponent implements OnInit {
   }
 
   public saveInsertedInfo(): void {
+
+    console.log('saveme', this.contact)
     
     if(this.currentVenewId === null) {
-      const resilt = this.contactService.add(this.venuewsModels);
+      const resilt = this.contactService.add(this.contact);
       return;
     }
 

@@ -2,7 +2,7 @@ import { Route } from '@angular/compiler/src/core';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, Version } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { VenuesModels } from './../../../models/venues/venues-model';
+import { VenuesModels } from '../../../models/venues-model';
 import { VenuesService } from './../../../services/venues-service';
 
 @Component({

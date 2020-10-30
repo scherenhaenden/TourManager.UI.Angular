@@ -1,3 +1,3 @@
-export class Email {
+export class EmailModel {
     public emailAddress: string;
 }

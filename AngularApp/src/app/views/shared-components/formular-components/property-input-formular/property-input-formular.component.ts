@@ -18,13 +18,13 @@ export class PropertyInputFormularComponent implements OnInit {
   public propertyValueDirect: any;
 
   public _swapValue: any = '';
-public _propertyValue: any = '';
-get propertyValue(): any {
-    return this._propertyValue;
-}
-@Input() set propertyValue(value: any) {
-     this._propertyValue = value;
-     this._swapValue = value;
+  public _propertyValue: any = '';
+  get propertyValue(): any {
+      return this._propertyValue;
+  }
+  @Input() set propertyValue(value: any) {
+      this._propertyValue = value;
+      this._swapValue = value;
 
 }
 
@@ -32,15 +32,15 @@ get propertyValue(): any {
   // @Input() propertyValue: any = '';
   @Input() type = '';
   @Output() propertyValueEmit: EventEmitter<string> =   new EventEmitter();
+  @Output() propertyValueChange: EventEmitter<string> =   new EventEmitter();
 
   constructor(private appRef: ApplicationRef) { }
 
   ngOnInit(): void {
   }
 
-  public updateValue($event: any): void {
-
-    this.propertyValueEmit.emit(this.propertyValue);
+  public updateValueBinding($event: any): void {    
+    this.propertyValueChange.emit(this._propertyValue);
   }
 
   public getType(): string {
@@ -52,8 +52,6 @@ get propertyValue(): any {
         return 'text';
 
       }
-      console.log('what am i?1', this.propertyValue);
-      console.log('what am i?2', this.type);
 
       if (this.type === 'time') {
 
@@ -75,10 +73,7 @@ get propertyValue(): any {
 
         return  this.type;
 
-      }
-
-
-      console.log('my type', this.type);
+      }      
       return this.type;
     }
     return 'text';

@@ -21,14 +21,14 @@
                      (mouseenter)="mouseEnterRow(i);" 
                      (mouseleave) ="mouseLeaveRow(i);"                        
                      [ngClass]="{'row-selected-color': rowEntered === i }"
-                     (click)="selectVenewToEdit(item.name);"
+                     (click)="selectVenewToEdit(item);"
                      >
                      <th scope="row">{{i}}</th>
                      <td >{{item.firstName}}</td>
                      <td >{{item.lastName}}</td>
-                     <td >{{item.telefonNummer}}</td>                     
-                     <td >{{item.email}}</td>
-                     <td >{{item.address}}</td>
+                     <td >{{showFirstOrDefaultInArray(item.telefonNummer)}}</td>                     
+                     <td >{{showFirstOrDefaultInArray(item.email)}}</td>
+                     <td >{{showFirstOrDefaultInArray(item.address)}}</td>
                      </tr>
                   </ng-container>
                </tbody>
