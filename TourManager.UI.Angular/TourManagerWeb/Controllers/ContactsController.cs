@@ -1,12 +1,10 @@
 using System;
-using System.Linq;
-using TourManager.Data.Core.Configuration;
-using TourManager.Data.Core.Domain;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TourManagerLogic.ApiModels;
+using TourManager.Data.Persistence;
 using TourManagerLogic.Core.Api;
-using TourManagerWeb.ApiModels;
+using TourManagerLogic.Core.Models;
 
 namespace TourManagerWeb.Controllers
 {
@@ -14,44 +12,60 @@ namespace TourManagerWeb.Controllers
     [Route("apipublic/[controller]")]
     public class ContactsController : ControllerBase
     {
-        private readonly TourManagerContext _tourManagerContext;
-        private CustomersApi _customersApi; 
+        private readonly IUnityOfWork _unityOfWork;
+        private ContacsApi _customersApi; 
 
         public ContactsController(
-            TourManagerContext tourManagerContext
+            IUnityOfWork unityOfWork
         )
         {
-            _tourManagerContext = tourManagerContext;
-            _customersApi = new CustomersApi(_tourManagerContext);
+            _unityOfWork = unityOfWork;
+            
+            _customersApi = new ContacsApi(_unityOfWork);
         }     
+        
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("ShowEntities")]
+        public List<ContactModel> ShowVenues()
+        {
+            return _customersApi.GetAllPagination();
+        }
         
         
         [AllowAnonymous]
         [HttpPost]
         [Route("Add")]
-        public dynamic Add(ContactsModel values)
+        public dynamic Add(ContactModel values)
         {
             _customersApi.Add(values);
+            return true;
+        }
+
+        [AllowAnonymous]
+        [HttpPut]
+        [Route("Update")]
+        public bool Update(ContactModel values)
+        {
+            _customersApi.Update(values);
+            return true;
+        }
+        
+        [AllowAnonymous]
+        [HttpDelete]
+        [Route("Delete")]
+        public bool Delete(ContactModel values)
+        {
+            _customersApi.Update(values);
             return true;
         }
         
         [AllowAnonymous]
         [HttpGet]
-        [Route("ShowEntities")]
-        public dynamic ShowVenues()
+        [Route("ShowInformationOfContactById")]
+        public ContactModel ShowInformationOfContactById(int id)
         {
-            try
-            {
-                return _tourManagerContext.Contacts.ToList();
-            }
-            catch (Exception ex)
-            {
-                return ex.StackTrace;
-            }
-
-            
+            return _customersApi.SelectBy(id);
         }
-        
-      
     }
 }

@@ -3,6 +3,6 @@
       {{propertyName}}
    </div>
    <div class="col-md-6">
-      <input #propertyInput id="{{id}}" type="{{getType()}}" class="form-control" [(ngModel)]="_propertyValue" (keyup)="updateValue($event)" />
+      <input #propertyInput id="{{id}}" type="{{getType()}}" class="form-control" [(ngModel)]="_propertyValue" (input)="updateValueBinding($event)" />
    </div>
 </div>

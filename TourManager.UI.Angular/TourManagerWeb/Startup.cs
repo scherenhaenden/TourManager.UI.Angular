@@ -1,46 +1,21 @@
-using System;
 using System.IO;
 using System.Threading.Tasks;
 
 using ElectronNET.API;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
 using TourManager.Data.Core.Configuration;
+using TourManager.Data.Persistence;
 using TourManagerWeb.Services;
 
 
 namespace TourManagerWeb
 {
-    
-    public class ExceptionHandlerMiddleware
-    {
-        private readonly RequestDelegate _next;
-
-        public ExceptionHandlerMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
-
-        public async Task InvokeAsync(HttpContext httpContext)
-        {
-            try
-            {
-                await _next(httpContext);
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception.Message);
-            }
-        }
-    }
-    
-    
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -79,8 +54,9 @@ namespace TourManagerWeb
                 configuration.RootPath = "wwwroot";
             });
             
-            var h = GetAExePath();
-            services.AddDbContext<TourManagerContext>(x => x.UseSqlite($"Data Source={h}/TourManager.db"));
+            //var h = GetAExePath();
+            services.AddDbContext<TourManagerContext>(x => x.UseSqlite($"Data Source=./TourManager.db"));
+            services.AddScoped<IUnityOfWork, UnityOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

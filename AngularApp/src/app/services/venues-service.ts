@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { VenuesModels } from '../models/venues/venues-model';
+import { VenuesModels } from '../models/venues-model';
 import { GenericApiService } from './generic-api-service';
 
 @Injectable()

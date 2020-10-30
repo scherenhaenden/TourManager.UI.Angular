@@ -2,7 +2,7 @@ import { Time } from '@angular/common';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { VenuesModels } from 'src/app/models/venues/venues-model';
+import { VenuesModels } from 'src/app/models/venues-model';
 import { VenuesService } from 'src/app/services/venues-service';
 
 @Component({
