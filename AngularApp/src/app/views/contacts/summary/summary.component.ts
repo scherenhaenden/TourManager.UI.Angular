@@ -31,8 +31,6 @@ export class SummaryComponent implements OnInit {
   ngOnInit(): void {
 
     this.getIdOfVenueInUrl();
-
-    this.loadVenue();
   }
 
 
@@ -59,12 +57,19 @@ export class SummaryComponent implements OnInit {
     if(id !== null) {
       this.contact = await this.contactService.ShowInformationOfContactById(id);
     }
-    this.contact.telefonNumbers.push(new TelefonNumberModel());
-    this.contact.emails.push(new EmailModel());
-    this.contact.addresses.push(new AddressModel());
+  }
 
-    
-    this.loadVenue();
+  public addTelefonNumberInput(): void {
+    this.contact.telefonNumbers.push(new TelefonNumberModel());
+
+  }
+
+  public addEmailInput(): void {
+    this.contact.emails.push(new EmailModel());
+  }
+
+  public addAddressInput(): void {
+    this.contact.addresses.push(new AddressModel());
   }
 
 
@@ -73,67 +78,14 @@ export class SummaryComponent implements OnInit {
     //this.contact[propertyToUpdate.toLocaleLowerCase()] = value;
   }
 
-
-
-  public loadVenue(): void {
-    this.listFlatModels = [];
-
-    const keys = Object.keys(this.venuewsModelEmpty);
-    const keysWithoutId =  keys.filter(key => key !== 'id');
-
-    for (const i in keysWithoutId) {
-
-      if (keysWithoutId.hasOwnProperty(i)) {
-        
-        // code here
-        const flat = new FlatModel();
-        const name = keysWithoutId[i];
-
-        let type  = (typeof this.venuewsModelEmpty[name]).toString();
-
-        if (type === 'object') {
-
-          if ((this.venuewsModelEmpty[name] instanceof Date) ) {
-
-            const value = (this.contact[name] as Date);
-            const final = this.sCdateToJsDate(value);
-
-            flat.propertyValueOfObject = final;
-
-            type =  'time';
-
-          }
-          else  if ((Array.isArray(this.venuewsModelEmpty[name] )) ) {
-
-            
-
-            flat.propertyValueOfObject = this.contact[name];
-            type =  'array';
-          }
-          else{
-            flat.propertyValueOfObject = this.contact[name];
-
-          }
-        }
-        else{
-          flat.propertyValueOfObject = this.contact[name];
-        }
-        flat.propertyValueOType = type;
-        const upperName = name.charAt(0).toUpperCase() + name.slice(1);
-        flat.propertyNameOfObject = upperName;
-        this.listFlatModels.push(flat);
-      }
-    }
-  }
-
   public saveInsertedInfo(): void {
 
-    console.log('saveme', this.contact)
-    
     if(this.currentVenewId === null) {
       const resilt = this.contactService.add(this.contact);
       return;
     }
+
+    
 
   }
 
