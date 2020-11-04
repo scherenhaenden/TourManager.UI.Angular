@@ -12,7 +12,7 @@ import { ContactService } from 'src/app/services/contacts-service';
   styleUrls: ['./summary.component.less']
 })
 export class SummaryComponent implements OnInit {
-  
+
   public listFlatModels: FlatModel[] = [];
 
   public venuewsModelEmpty: ContactModel = new ContactModel();
@@ -21,9 +21,8 @@ export class SummaryComponent implements OnInit {
   public currentEntityID: number;
 
   constructor(private contactService: ContactService
-            , private activatedRoute: ActivatedRoute) { 
+            , private activatedRoute: ActivatedRoute) {
 
-         
 
             }
 
@@ -33,13 +32,13 @@ export class SummaryComponent implements OnInit {
   }
 
 
-  public async getIdOfVenueInUrl():Promise<void> {
+  public async getIdOfVenueInUrl(): Promise<void> {
 
     this.activatedRoute.queryParams.subscribe(params => {
 
-      this.currentEntityID = this.activatedRoute.snapshot.params['id'];
+      this.currentEntityID = this.activatedRoute.snapshot.params.id;
 
-      if(this.currentEntityID !== undefined) {
+      if (this.currentEntityID !== undefined) {
 
         this.loadValues(this.currentEntityID);
         return;
@@ -50,10 +49,9 @@ export class SummaryComponent implements OnInit {
   }
 
 
-
   public async loadValues(id: number): Promise<void> {
 
-    if(id !== null) {
+    if (id !== null) {
       this.contact = await this.contactService.ShowInformationOfContactById(id);
     }
   }
@@ -74,12 +72,12 @@ export class SummaryComponent implements OnInit {
 
   public updateValue(value: any, verga?: any): void {
 
-    //this.contact[propertyToUpdate.toLocaleLowerCase()] = value;
+    // this.contact[propertyToUpdate.toLocaleLowerCase()] = value;
   }
 
-  public saveInsertedInfo(): void {   
+  public saveInsertedInfo(): void {
 
-    if(this.currentEntityID === null || this.currentEntityID === undefined) {
+    if (this.currentEntityID === null || this.currentEntityID === undefined) {
       const resilt = this.contactService.add(this.contact);
       return;
     }
@@ -89,21 +87,21 @@ export class SummaryComponent implements OnInit {
 
   public deleteEmailSelected(entity: EmailModel): void {
 
-    const result = this.contact.emails.filter(x=>x.id !== entity.id);
+    const result = this.contact.emails.filter(x => x.id !== entity.id);
     this.contact.emails = result;
     this.contactService.update(this.contact);
   }
 
   public deleteTelefonSelected(entity: TelefonNumberModel): void {
 
-    const result = this.contact.telefonNumbers.filter(x=>x.id !== entity.id);
+    const result = this.contact.telefonNumbers.filter(x => x.id !== entity.id);
     this.contact.telefonNumbers = result;
     this.contactService.update(this.contact);
   }
 
   public deleteAddressSelected(entity: AddressModel): void {
 
-    const result = this.contact.addresses.filter(x=>x.id !== entity.id);
+    const result = this.contact.addresses.filter(x => x.id !== entity.id);
     this.contact.addresses = result;
     this.contactService.update(this.contact);
   }
