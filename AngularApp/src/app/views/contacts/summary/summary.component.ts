@@ -12,8 +12,7 @@ import { ContactService } from 'src/app/services/contacts-service';
   styleUrls: ['./summary.component.less']
 })
 export class SummaryComponent implements OnInit {
-
-  public currentVenewId: number = null;
+  
   public listFlatModels: FlatModel[] = [];
 
   public venuewsModelEmpty: ContactModel = new ContactModel();
@@ -78,15 +77,35 @@ export class SummaryComponent implements OnInit {
     //this.contact[propertyToUpdate.toLocaleLowerCase()] = value;
   }
 
-  public saveInsertedInfo(): void {
+  public saveInsertedInfo(): void {   
 
-    if(this.currentVenewId === null) {
+    if(this.currentEntityID === null || this.currentEntityID === undefined) {
       const resilt = this.contactService.add(this.contact);
       return;
     }
 
-    
+    const result = this.contactService.update(this.contact);
+  }
 
+  public deleteEmailSelected(entity: EmailModel): void {
+
+    const result = this.contact.emails.filter(x=>x.id !== entity.id);
+    this.contact.emails = result;
+    this.contactService.update(this.contact);
+  }
+
+  public deleteTelefonSelected(entity: TelefonNumberModel): void {
+
+    const result = this.contact.telefonNumbers.filter(x=>x.id !== entity.id);
+    this.contact.telefonNumbers = result;
+    this.contactService.update(this.contact);
+  }
+
+  public deleteAddressSelected(entity: AddressModel): void {
+
+    const result = this.contact.addresses.filter(x=>x.id !== entity.id);
+    this.contact.addresses = result;
+    this.contactService.update(this.contact);
   }
 
   public sCdateToJsDate(cSDate: any): Date {
