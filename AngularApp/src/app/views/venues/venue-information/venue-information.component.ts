@@ -27,16 +27,16 @@ export class VenueInformationComponent implements OnInit {
 
   ngOnInit(): void {
     this.getIdOfVenueInUrl();
-    //this.loadInformation();
+    // this.loadInformation();
   }
 
-  public async getIdOfVenueInUrl():Promise<void> {
+  public async getIdOfVenueInUrl(): Promise<void> {
 
     this.activatedRoute.queryParams.subscribe(params => {
 
-      this.currentEntityID = this.activatedRoute.snapshot.params['id'];
+      this.currentEntityID = this.activatedRoute.snapshot.params.id;
 
-      if(this.currentEntityID !== undefined) {
+      if (this.currentEntityID !== undefined) {
 
         this.loadInformation(this.currentEntityID);
 
@@ -45,7 +45,6 @@ export class VenueInformationComponent implements OnInit {
       this.loadVenue();
 
 
-      
     }) ;
 
   }
@@ -54,11 +53,11 @@ export class VenueInformationComponent implements OnInit {
 
     this.activatedRoute.queryParams.subscribe(params => {
 
-      this.currentEntityID = this.activatedRoute.snapshot.params['id'];
+      this.currentEntityID = this.activatedRoute.snapshot.params.id;
 
       const myValues =  this.venuesService.getVenueInformation<VenuesModels>(this.currentEntityID);
 
-      (async () => { //no async keyword here
+      (async () => { // no async keyword here
         try {
           const result = await myValues;
 
@@ -76,7 +75,7 @@ export class VenueInformationComponent implements OnInit {
         }
       })();
       console.log('myvalues', myValues);
-    });   
+    });
 
   }
 
@@ -85,11 +84,11 @@ export class VenueInformationComponent implements OnInit {
     const keys = Object.keys(this.venuewsModelEmpty);
     const keysWithoutId =  keys.filter(key => key !== 'id');
 
-    console.log('flatt up', (this.venuewsModels))
-    console.log('flatt keys', (keys))
-    console.log('flatt keysWithoutId', (keysWithoutId))
-    //console.log('flatt object', (type))
-    console.log('flatt name', (name))
+    console.log('flatt up', (this.venuewsModels));
+    console.log('flatt keys', (keys));
+    console.log('flatt keysWithoutId', (keysWithoutId));
+    // console.log('flatt object', (type))
+    console.log('flatt name', (name));
 
     for (const i in keysWithoutId) {
 
@@ -112,7 +111,7 @@ export class VenueInformationComponent implements OnInit {
             try{
               final = this.sCdateToJsDate(value);
             }
-            catch(e){
+            catch (e){
               final = (value);
             }
 
