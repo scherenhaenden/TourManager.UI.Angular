@@ -12,8 +12,7 @@ import { ContactService } from 'src/app/services/contacts-service';
   styleUrls: ['./summary.component.less']
 })
 export class SummaryComponent implements OnInit {
-
-  public currentVenewId: number = null;
+  
   public listFlatModels: FlatModel[] = [];
 
   public venuewsModelEmpty: ContactModel = new ContactModel();
@@ -31,8 +30,6 @@ export class SummaryComponent implements OnInit {
   ngOnInit(): void {
 
     this.getIdOfVenueInUrl();
-
-    this.loadVenue();
   }
 
 
@@ -59,12 +56,19 @@ export class SummaryComponent implements OnInit {
     if(id !== null) {
       this.contact = await this.contactService.ShowInformationOfContactById(id);
     }
-    this.contact.telefonNumbers.push(new TelefonNumberModel());
-    this.contact.emails.push(new EmailModel());
-    this.contact.addresses.push(new AddressModel());
+  }
 
-    
-    this.loadVenue();
+  public addTelefonNumberInput(): void {
+    this.contact.telefonNumbers.push(new TelefonNumberModel());
+
+  }
+
+  public addEmailInput(): void {
+    this.contact.emails.push(new EmailModel());
+  }
+
+  public addAddressInput(): void {
+    this.contact.addresses.push(new AddressModel());
   }
 
 
@@ -73,68 +77,35 @@ export class SummaryComponent implements OnInit {
     //this.contact[propertyToUpdate.toLocaleLowerCase()] = value;
   }
 
+  public saveInsertedInfo(): void {   
 
-
-  public loadVenue(): void {
-    this.listFlatModels = [];
-
-    const keys = Object.keys(this.venuewsModelEmpty);
-    const keysWithoutId =  keys.filter(key => key !== 'id');
-
-    for (const i in keysWithoutId) {
-
-      if (keysWithoutId.hasOwnProperty(i)) {
-        
-        // code here
-        const flat = new FlatModel();
-        const name = keysWithoutId[i];
-
-        let type  = (typeof this.venuewsModelEmpty[name]).toString();
-
-        if (type === 'object') {
-
-          if ((this.venuewsModelEmpty[name] instanceof Date) ) {
-
-            const value = (this.contact[name] as Date);
-            const final = this.sCdateToJsDate(value);
-
-            flat.propertyValueOfObject = final;
-
-            type =  'time';
-
-          }
-          else  if ((Array.isArray(this.venuewsModelEmpty[name] )) ) {
-
-            
-
-            flat.propertyValueOfObject = this.contact[name];
-            type =  'array';
-          }
-          else{
-            flat.propertyValueOfObject = this.contact[name];
-
-          }
-        }
-        else{
-          flat.propertyValueOfObject = this.contact[name];
-        }
-        flat.propertyValueOType = type;
-        const upperName = name.charAt(0).toUpperCase() + name.slice(1);
-        flat.propertyNameOfObject = upperName;
-        this.listFlatModels.push(flat);
-      }
-    }
-  }
-
-  public saveInsertedInfo(): void {
-
-    console.log('saveme', this.contact)
-    
-    if(this.currentVenewId === null) {
+    if(this.currentEntityID === null || this.currentEntityID === undefined) {
       const resilt = this.contactService.add(this.contact);
       return;
     }
 
+    const result = this.contactService.update(this.contact);
+  }
+
+  public deleteEmailSelected(entity: EmailModel): void {
+
+    const result = this.contact.emails.filter(x=>x.id !== entity.id);
+    this.contact.emails = result;
+    this.contactService.update(this.contact);
+  }
+
+  public deleteTelefonSelected(entity: TelefonNumberModel): void {
+
+    const result = this.contact.telefonNumbers.filter(x=>x.id !== entity.id);
+    this.contact.telefonNumbers = result;
+    this.contactService.update(this.contact);
+  }
+
+  public deleteAddressSelected(entity: AddressModel): void {
+
+    const result = this.contact.addresses.filter(x=>x.id !== entity.id);
+    this.contact.addresses = result;
+    this.contactService.update(this.contact);
   }
 
   public sCdateToJsDate(cSDate: any): Date {
