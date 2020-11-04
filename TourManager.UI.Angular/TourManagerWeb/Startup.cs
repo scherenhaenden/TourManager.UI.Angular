@@ -1,6 +1,5 @@
 using System.IO;
 using System.Threading.Tasks;
-
 using ElectronNET.API;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -52,10 +51,16 @@ namespace TourManagerWeb
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "wwwroot";
-            });
+            });            
             
-            //var h = GetAExePath();
-            services.AddDbContext<TourManagerContext>(x => x.UseSqlite($"Data Source=./TourManager.db"));
+            services.AddDbContext<TourManagerContext>
+            (
+                x =>
+                {
+                    x.UseSqlite($"Data Source=./TourManager.db");
+                    x.UseLazyLoadingProxies();
+
+                });
             services.AddScoped<IUnityOfWork, UnityOfWork>();
         }
 
