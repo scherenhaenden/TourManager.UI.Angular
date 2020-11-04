@@ -51,11 +51,15 @@ export class MainNavComponent implements OnInit {
 
   }
 
-  public changeRouterNaveState(url: string): void {
+  public changeRouterNaveState(url: string): void {    
     
     if(url.includes('venues')) {
 
       this.currentState = StateButtons.Venues;
+
+    } else if(url.startsWith('/contacts')) { 
+
+      this.currentState = StateButtons.Contacts;
 
     }
 
