@@ -51,14 +51,6 @@ export class ContactsComponent implements OnInit {
     }
   }
 
-  public showFirstOrDefaultInArray(values: any[]) : string {
-
-    if(values !== undefined && values !== null && values.length >0  ) {
-      return values[0];
-    }
-    return 'empty';
-  }
-
 
 
 
