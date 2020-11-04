@@ -9,3 +9,4 @@ export class AddressModel {
     public contactId: number;
     public venueId: number;
 }
+
