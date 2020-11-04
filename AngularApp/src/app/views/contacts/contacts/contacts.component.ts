@@ -52,8 +52,6 @@ export class ContactsComponent implements OnInit {
   }
 
 
-
-
   public selectVenewToEdit(item: ContactModel): void {
 
     console.log('item', item);
@@ -63,7 +61,6 @@ export class ContactsComponent implements OnInit {
     const valueId = itemToEdit.id;
 
     this.router.navigate(['./contacts/summary/' + valueId]);
-    
 
 
   }

@@ -25,7 +25,7 @@ export class ContactService {
     }
 
     public async getEntites<T>(): Promise<T> {
-        
+
         const url = this.urlApiController + 'ShowEntities/';
 
         return this.genericApiService.GenericGet<T>(url, null).toPromise();

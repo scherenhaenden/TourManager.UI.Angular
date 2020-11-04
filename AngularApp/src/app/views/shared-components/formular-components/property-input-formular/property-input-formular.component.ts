@@ -39,7 +39,7 @@ export class PropertyInputFormularComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public updateValueBinding($event: any): void {    
+  public updateValueBinding($event: any): void {
     this.propertyValueChange.emit(this._propertyValue);
   }
 
@@ -73,7 +73,7 @@ export class PropertyInputFormularComponent implements OnInit {
 
         return  this.type;
 
-      }      
+      }
       return this.type;
     }
     return 'text';
