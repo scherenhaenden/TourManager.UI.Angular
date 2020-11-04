@@ -18,6 +18,12 @@ export class ContactService {
         this.genericApiService.GenericPost(url, venuewsModels).toPromise();
     }
 
+    public async update(venuewsModels: ContactModel): Promise<any> {
+
+        const url = this.urlApiController + 'Update/';
+        this.genericApiService.GenericPut(url, venuewsModels).toPromise();
+    }
+
     public async getEntites<T>(): Promise<T> {
         
         const url = this.urlApiController + 'ShowEntities/';

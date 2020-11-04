@@ -16,7 +16,21 @@ export class GenericApiService {
 
 ) {  }
 
-    
+public GenericPut<T>(url: string, model: T, httpOptions?: HttpHeaders): Observable<T> {
+
+  const httpOptionsNew = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      // Authorization: 'Bearer ' + this.authenticationService.getJWTDeCypherd(this.authenticationService.getBearer())
+    }),
+  };
+
+  const urlForRequest = this.apiUrl + url;
+  return this.http.put<T>(urlForRequest, model,  httpOptionsNew)
+  .pipe(
+    catchError(this.handleError)
+  );
+}
 
 
   public GenericGet<T>(url: string, httpOptions?: HttpHeaders): Observable<T> {
