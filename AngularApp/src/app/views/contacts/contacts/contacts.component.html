@@ -1,5 +1,5 @@
-<div class="row h-100">
-<div class="container-fluid">
+<div class="row h-100 w-100 m-0">
+<div class="container-fluid p-0">
 <div class="row form-group h-100">
    <div class="col-md-12">
       <div class="row m-0 h-100 d-inline-block w-100" >
@@ -9,10 +9,7 @@
                   <tr>
                      <th scope="col">#</th>
                      <th scope="col">Firstname</th>
-                     <th scope="col">Lastname</th>
-                     <th scope="col">Telefon</th>
-                     <th scope="col">Email</th>
-                     <th scope="col">Address</th>                     
+                     <th scope="col">Lastname</th>                     
                   </tr>
                </thead>
                <tbody>
@@ -25,10 +22,7 @@
                      >
                      <th scope="row">{{i}}</th>
                      <td >{{item.firstName}}</td>
-                     <td >{{item.lastName}}</td>
-                     <td >{{showFirstOrDefaultInArray(item.telefonNummer)}}</td>                     
-                     <td >{{showFirstOrDefaultInArray(item.email)}}</td>
-                     <td >{{showFirstOrDefaultInArray(item.address)}}</td>
+                     <td >{{item.lastName}}</td>               
                      </tr>
                   </ng-container>
                </tbody>
