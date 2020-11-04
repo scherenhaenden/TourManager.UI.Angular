@@ -51,16 +51,6 @@ export class ContactsComponent implements OnInit {
     }
   }
 
-  public showFirstOrDefaultInArray(values: any[]) : string {
-
-    if(values !== undefined && values !== null && values.length >0  ) {
-      return values[0];
-    }
-    return 'empty';
-  }
-
-
-
 
   public selectVenewToEdit(item: ContactModel): void {
 
@@ -71,7 +61,6 @@ export class ContactsComponent implements OnInit {
     const valueId = itemToEdit.id;
 
     this.router.navigate(['./contacts/summary/' + valueId]);
-    
 
 
   }
