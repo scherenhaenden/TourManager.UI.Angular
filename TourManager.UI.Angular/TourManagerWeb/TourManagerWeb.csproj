@@ -13,12 +13,15 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.9" />
-    <PackageReference Include="TourManager.Data" Version="0.2.8" />
-    <PackageReference Include="TourManagerLogic" Version="0.2.8" />
+    <PackageReference Include="TourManager.Data" Version="0.3.2" />
+    <PackageReference Include="TourManagerLogic" Version="0.3.2" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="electron.manifest.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ApiModels" />
   </ItemGroup>  
 </Project>

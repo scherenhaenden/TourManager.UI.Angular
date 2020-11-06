@@ -11,7 +11,8 @@
                   >
                   </app-property-input-formular>
                </div>
-            </ng-container>
+            </ng-container>       
+            <app-addresses-view [(addresses)]="venuewsModels.addresses"></app-addresses-view>
             <div class="row">
                <ng-container *ngIf="currentEntityID===null">
                   <button type="button" class="btn btn-primary" (click)="saveInsertedInfo()" >Add New</button>	

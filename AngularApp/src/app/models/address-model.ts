@@ -6,7 +6,7 @@ export class AddressModel {
     public houseNameOrNumber: string;
     public postalZip: string;
     public extranInfo: string;
-    public contactId: number;
-    public venueId: number;
+    public contactId?: number;
+    public venueId?: number;
 }
 
