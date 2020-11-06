@@ -5,10 +5,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { PropertyInputFormularComponent } from './formular-components/property-input-formular/property-input-formular.component';
 import { FormsModule } from '@angular/forms';
+import { AddressesViewComponent } from './addresses-view/addresses-view.component';
 
 
 @NgModule({
-  declarations: [MainNavComponent, PropertyInputFormularComponent],
+  declarations: [MainNavComponent, PropertyInputFormularComponent, AddressesViewComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -16,7 +17,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   exports: [
-    MainNavComponent, PropertyInputFormularComponent
+    MainNavComponent, PropertyInputFormularComponent, AddressesViewComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
