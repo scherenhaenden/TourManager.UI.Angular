@@ -4,7 +4,7 @@ using TourManager.Data.Core.Configuration;
 using TourManager.Data.Core.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TourManagerWeb.ApiModels;
+using TourManagerLogic.Core.Models;
 
 namespace TourManagerWeb.Controllers
 {
