@@ -2,6 +2,7 @@ import { Time } from '@angular/common';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ContactModel } from 'src/app/models/contact-model';
 import { VenuesModels } from 'src/app/models/venues-model';
 import { VenuesService } from 'src/app/services/venues-service';
 
@@ -14,6 +15,19 @@ export class VenueInformationComponent implements OnInit {
 
   public venuewsModels: VenuesModels = new VenuesModels();
   public venuewsModelEmpty: VenuesModels = new VenuesModels();
+
+  //FIME: 
+  public _contacts: ContactModel [] = [];
+
+  get contacts(): ContactModel [] {
+      return this._contacts;
+  }
+  set contacts(value: ContactModel []) {
+      this._contacts = value;
+      console.log('updating', value)
+      //console.log(this.venuewsModels.venuesToContacts)
+      
+  }
 
   public listFlatModels: FlatModel[] = [];
 
@@ -38,15 +52,24 @@ export class VenueInformationComponent implements OnInit {
 
       if (this.currentEntityID !== undefined) {
 
-        this.loadInformation(this.currentEntityID);
-
+        this.loadValues(this.currentEntityID);
+        return;
       }
-
-      this.loadVenue();
-
-
     }) ;
 
+  }
+
+
+  public async loadValues(id: number): Promise<void> {
+
+    if (id !== null) {
+      this.venuewsModels = await this.venuesService.getVenueInformation(id);
+      console.log('this.venuewsModels',this.venuewsModels);
+      console.log('this.contacts',this.contacts);
+
+      this.contacts = this.venuewsModels.venuesToContacts.map(x => x.contact);
+
+    }
   }
 
   public async loadInformation(id: number): Promise<void> {
@@ -61,13 +84,13 @@ export class VenueInformationComponent implements OnInit {
         try {
           const result = await myValues;
 
-          this.listFlatModels = [];
+          
 
           this.venuewsModels = result;
 
-          console.log('this.venuewsModels', this.venuewsModels);
+          console.log('this.venuewsModels',  this.venuewsModels);
 
-          this.loadVenue();
+          
 
           console.log('async/await -> ', result);
         } catch (err) {
@@ -79,71 +102,6 @@ export class VenueInformationComponent implements OnInit {
 
   }
 
-  public loadVenue(): void {
-
-    const keys = Object.keys(this.venuewsModelEmpty);
-    const keysWithoutId =  keys.filter(key => key !== 'id');
-
-    console.log('flatt up', (this.venuewsModels));
-    console.log('flatt keys', (keys));
-    console.log('flatt keysWithoutId', (keysWithoutId));
-    // console.log('flatt object', (type))
-    console.log('flatt name', (name));
-
-    for (const i in keysWithoutId) {
-
-      if (keysWithoutId.hasOwnProperty(i)) {
-        // code here
-        const flat = new FlatModel();
-        const name = keysWithoutId[i];
-
-        let type  = (typeof this.venuewsModelEmpty[name]).toString();
-        if (type === 'object') {
-
-          if ((this.venuewsModelEmpty[name] instanceof Date) ) {
-
-            const value = (this.venuewsModels[name] as Date);
-
-            console.log('value time', value);
-
-            let final: Date = new Date();
-
-            try{
-              final = this.sCdateToJsDate(value);
-            }
-            catch (e){
-              final = (value);
-            }
-
-            flat.propertyValueOfObject = final;
-
-            type =  'time';
-
-
-          }
-          else{
-            flat.propertyValueOfObject = this.venuewsModels[name];
-
-          }
-
-        }
-        else{
-          flat.propertyValueOfObject = this.venuewsModels[name];
-        }
-        flat.propertyValueOType = type;
-        const upperName = name.charAt(0).toUpperCase() + name.slice(1);
-        // name = name.charAt(0).toUpperCase() + name.slice(1);
-        flat.propertyNameOfObject = upperName;
-        console.log('myreal value', name);
-        console.log('myreal value', this.venuewsModels[name]);
-
-
-        this.listFlatModels.push(flat);
-
-        console.log('myreal value flat', this.listFlatModels);
-      }
-    }
-  }
 
   public updateValue(value: string, propertyToUpdate: string): void {
 
@@ -152,10 +110,14 @@ export class VenueInformationComponent implements OnInit {
 
   public async saveInsertedInfo(): Promise<void>{
 
-    if (this.currentEntityID === null) {
+    if (this.currentEntityID === null || this.currentEntityID === undefined) {
       const resilt = this.venuesService.addNewVenue(this.venuewsModels);
       return;
     }
+
+    this.venuewsModels.id = this.currentEntityID;
+
+    console.log('venuewsModels', this.venuewsModels);
 
     const resilt = this.venuesService.updateVenue(this.venuewsModels);
 
