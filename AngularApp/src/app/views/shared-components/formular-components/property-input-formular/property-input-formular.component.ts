@@ -28,7 +28,7 @@ export class PropertyInputFormularComponent implements OnInit {
       this._swapValue = value;
 
 }
-  
+
   @Input() type = '';
   @Output() propertyValueEmit: EventEmitter<string> =   new EventEmitter();
   @Output() propertyValueChange: EventEmitter<string> =   new EventEmitter();
@@ -38,7 +38,7 @@ export class PropertyInputFormularComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public updateValueBinding($event: any): void {    
+  public updateValueBinding($event: any): void {
     this.propertyValueChange.emit(this._propertyValue);
   }
 
@@ -70,9 +70,7 @@ export class PropertyInputFormularComponent implements OnInit {
 
 
             }
-            
-            console.log('am i date?', this._swapValue instanceof Date);
-            console.log('am i value?', this._swapValue);
+ 
             
             
             let my_val= (this._propertyValue as TimeSpan);
@@ -80,47 +78,9 @@ export class PropertyInputFormularComponent implements OnInit {
             if(my_val.hours !==0 || my_val.minutes !== 0) {
 
               let my_val2= (this._propertyValue as Date);
-
-
-              console.log('_propertyValue', this._propertyValue);
-              console.log('_propertyValue ho' , my_val);
-              console.log('_propertyValue hours' , my_val.hours);
-              console.log('_propertyValue seconds' , my_val.hours);
-
-              /*console.log('my_val fixed', my_val);
-              console.log('my_val date', my_val2.getTime());
-              console.log('totalHours fixed', my_val.totalHours);*/
+            
 
             }
-
-
-            
-          
-
-          //console.log('_propertyValue fixed', this._propertyValue);
-
-          
-
-
-          //console.log('my_val fixed', my_val);
-
-
-          //this._swapValue = my_val.getTime();
-          
-
-          //console.log('my_val fixed gettime', my_val.getTime().toString());
-          
-          //this._propertyValue = this._swapValue;
-
-          //console.log('my_val fixed', my_val.toTimeString());
-
-          //this._propertyValue = this.sCdateToJsDate(this._swapValue);
-
-
-          //this._swapValue = this.sCdateToJsDate(my_val);
-
-
-
 
           }
 
@@ -134,22 +94,7 @@ export class PropertyInputFormularComponent implements OnInit {
 
 
          
-          //console.log('_propertyValue fixed', this._swapValue);
-
-
-
-
-  //        this._propertyValue = this._swapValue;
-//
-          /*const final = (this._swapValue as Date).toLocaleTimeString();
-
-          if (this._propertyValue !== (this._swapValue as Date).toLocaleTimeString()) {
-
-            this._propertyValue = final;
-
-          }*/
-
-
+      
         }
         catch (e) {
           console.error('error time:', e)
