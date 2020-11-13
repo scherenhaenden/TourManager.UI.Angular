@@ -46,7 +46,9 @@
                [id]="'notes'+ venuewsModels.id"        
                >
                </app-property-input-formular>
-            </div>    
+            </div>
+
+            <app-contacts-view-as-related-entity [(contacts)]="contacts"></app-contacts-view-as-related-entity>             
 
             <app-emails-views [(emails)]="venuewsModels.emails"></app-emails-views>
 
