@@ -1,0 +1,18 @@
+<div class="row ml-0 mr-0">
+   <app-property-input-formular class=" w-100 ml-0 mr-0 mt-1 mb-1"  [(propertyValue)]="contact.firstName" [propertyName]="'First Name'"                
+   [type]="'string'" 
+   [id]="contact.id"                  
+   >
+   </app-property-input-formular>
+</div>
+<div class="row ml-0 mr-0">
+   <app-property-input-formular class="w-100 ml-0 mr-0 mt-1 mb-1" [propertyName]="'Last Name'" [(propertyValue)]="contact.lastName"
+   (keyUp)="updateValue($event,contact.firstName)"
+   [type]="'string'" 
+   [id]="contact.id + 'contact.lastName' "                  
+   >
+   </app-property-input-formular>
+</div>
+<app-emails-views [(emails)]="contact.emails"></app-emails-views>
+<app-telefon-numbers-view [(telefonNumbers)]="contact.telefonNumbers"></app-telefon-numbers-view>              
+<app-addresses-view [(addresses)]="contact.addresses"></app-addresses-view>
