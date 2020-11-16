@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TourManager.Data.Persistence;
@@ -30,6 +31,17 @@ namespace TourManagerWeb.Controllers
         public List<ContactModel> ShowVenues()
         {
             return _customersApi.GetAllPagination();
+        }
+        
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("ShowEntitiesPagination")]
+        public List<ContactModel> ShowVenuesPagination()
+        {
+            var all1 = _customersApi.GetAllPagination();
+            
+            //var all2 = all1.OrderBy(x=>x.FirstName)
+            return all1;
         }
         
         
