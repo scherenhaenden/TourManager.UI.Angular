@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using TourManager.Data.Core.Configuration;
 using TourManager.Data.Persistence;
@@ -37,10 +38,14 @@ namespace TourManagerWeb
         {
             services.AddCors();
             //services.AddControllers().AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
-            
+
             services.AddControllers().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            }).AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.Formatting = Formatting.Indented;
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
             
             services.AddTransient<HelperService>();

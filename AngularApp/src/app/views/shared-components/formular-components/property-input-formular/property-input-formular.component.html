@@ -3,6 +3,12 @@
       {{propertyName}}
    </div>
    <div class="col-md-6">
-      <input #propertyInput id="{{id}}" type="{{getType()}}" class="form-control" [(ngModel)]="_propertyValue" (input)="updateValueBinding($event)" />
+      <ng-container *ngIf="type==='time'">
+         <input #propertyInput id="{{id}}" type="{{getType()}}" class="form-control" [(ngModel)]="_propertyValue" (input)="updateValueBinding($event)" />
+      </ng-container>
+
+       <ng-container *ngIf="type!=='time'">
+         <input #propertyInput id="{{id}}" type="{{getType()}}" class="form-control" [(ngModel)]="_propertyValue" (input)="updateValueBinding($event)" />
+      </ng-container>
    </div>
 </div>

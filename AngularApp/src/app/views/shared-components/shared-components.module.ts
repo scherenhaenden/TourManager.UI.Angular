@@ -5,10 +5,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { PropertyInputFormularComponent } from './formular-components/property-input-formular/property-input-formular.component';
 import { FormsModule } from '@angular/forms';
+import { AddressesViewComponent } from './addresses-view/addresses-view.component';
+import { TelefonNumbersViewComponent } from './telefon-numbers-view/telefon-numbers-view.component';
+import { EmailsViewsComponent } from './emails-views/emails-views.component';
 
 
 @NgModule({
-  declarations: [MainNavComponent, PropertyInputFormularComponent],
+  declarations: [MainNavComponent, PropertyInputFormularComponent, AddressesViewComponent
+    , TelefonNumbersViewComponent, EmailsViewsComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -16,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   exports: [
-    MainNavComponent, PropertyInputFormularComponent
+    MainNavComponent, PropertyInputFormularComponent, AddressesViewComponent, TelefonNumbersViewComponent
+    ,EmailsViewsComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
