@@ -13,7 +13,6 @@ export class ContacsShowAndEditingViewComponent implements OnInit, DoCheck {
 
   constructor() { }
   ngDoCheck(): void {
-    //console.log('changes done so far', this.contact);
     this.contactChange.emit(this.contact);
   }
    
