@@ -67,14 +67,87 @@ namespace TourManagerWeb.Controllers
         }
         
         
+        //FIXME: Decouple to api
+        public void VanuesToContactDecoupling(ProxyModelForVenues values)
+        {
+            var venuesContactApi = new VenuesContactApi(_unityOfWork);
+            foreach (var venuesToContacts in values.VenuesToContacts)
+            {
+                var result = venuesContactApi.Find(x => x.Id == venuesToContacts.Id).FirstOrDefault();
+                if (result != null)
+                {
+                    
+                    venuesContactApi.Update(result);
+                }
+                else
+                {   
+                    venuesContactApi.Add(venuesToContacts);
+                }
+            }
+        }
+        
+        
+        //FIXME: Decouple to api
+        public void VanuesToContactDecouplingDelete(ProxyModelForVenues values)
+        {
+            var venuesContactApi = new VenuesContactApi(_unityOfWork);
+            foreach (var venuesToContacts in values.VenuesToContacts)
+            {
+                var result = venuesContactApi.Find(x => x.Id == venuesToContacts.Id).FirstOrDefault();
+                if (result != null)
+                {
+                    
+                    venuesContactApi.Update(result);
+                }
+                else
+                {   
+                    venuesContactApi.Add(venuesToContacts);
+                }
+            }
+        }
+
+
         [AllowAnonymous]
         [HttpPost]
         [Route("UpdateVenue")]
         public dynamic UpdateVenue(ProxyModelForVenues values)
-        {            
-            var neww = new VenuesApi(_unityOfWork);
+        {   
             
-            neww.Update( (VenueModel)values);
+            
+            var venuesApi = new VenuesApi(_unityOfWork);
+
+            var currentIdentity = venuesApi.Find(x => x.Id == values.Id).FirstOrDefault();
+
+
+            var all=from curenntVToC in currentIdentity.VenuesToContacts
+                                    join incomming in values.VenuesToContacts on curenntVToC.Id equals incomming.Id into bothResults
+                                    from g in bothResults.DefaultIfEmpty()
+                                    select new {curenntVToC = curenntVToC, incomming = g};
+
+            var all2= all.ToList();
+            
+                
+            
+            
+            
+
+
+
+            //FIXME: Decouple to api
+
+            if (values.VenuesToContacts != null)
+            {
+                if (values.VenuesToContacts.Count > 0)
+                {
+                    VanuesToContactDecoupling(values);
+                }
+            }
+
+
+          
+
+
+            venuesApi.Update( (VenueModel)values);
             
            return null;
         }

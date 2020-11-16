@@ -7,6 +7,7 @@ import { SharedComponentsModule } from '../shared-components/shared-components.m
 import { FormsModule } from '@angular/forms';
 import { VenuesService } from './../../services/venues-service';
 import { ContactsModule } from '../contacts/contacts.module';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ContactsModule } from '../contacts/contacts.module';
     NgbModule,
     SharedComponentsModule,
     FormsModule,
-    ContactsModule
+    ContactsModule,
+    RouterModule,
   ],
   exports:[ContactsModule],
   providers: [VenuesService],
