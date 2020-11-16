@@ -2,17 +2,60 @@
    <div class="container-fluid">
       <div class="row form-group">
          <div class="col-md-12">
-            <ng-container *ngFor="let item of listFlatModels; index as i;">
-               <div class="row ml-0 mr-0">
-                  <app-property-input-formular class=" w-100 ml-0 mr-0 mt-1 mb-1" [propertyName]="item.propertyNameOfObject" [propertyValue]="item.propertyValueOfObject"
-                  (propertyValueEmit)="updateValue($event,item.propertyNameOfObject)"
-                  [type]="item.propertyValueOType" 
-                  [id]="i"                  
-                  >
-                  </app-property-input-formular>
-               </div>
-            </ng-container>       
+
+
+          <div class="row ml-0 mr-0">
+               <app-property-input-formular class=" w-100 ml-0 mr-0 mt-1 mb-1"  [(propertyValue)]="venuewsModels.name" [propertyName]="'Name'"                
+               [type]="'string'" 
+               [id]="'name'+ venuewsModels.id"                  
+               >
+               </app-property-input-formular>
+            </div>
+
+                <div class="row ml-0 mr-0">
+               <app-property-input-formular class=" w-100 ml-0 mr-0 mt-1 mb-1"  [(propertyValue)]="venuewsModels.maxCapacity" [propertyName]="'Max Capacity'"                
+               [type]="'number'" 
+               [id]="'MaxCapacity'+ venuewsModels.id"   
+               >
+               </app-property-input-formular>
+            </div>
+
+
+            <div class="row ml-0 mr-0">
+               <app-property-input-formular class=" w-100 ml-0 mr-0 mt-1 mb-1"  [(propertyValue)]="venuewsModels.loadIn" [propertyName]="'Load In'"                
+               [type]="'time'" 
+               [id]="'loadin'+ venuewsModels.id"   
+               >
+               </app-property-input-formular>
+            </div>
+
+
+              
+            <div class="row ml-0 mr-0">
+               <app-property-input-formular class=" w-100 ml-0 mr-0 mt-1 mb-1"  [(propertyValue)]="venuewsModels.curfView" [propertyName]="'Curfew'"                
+               [type]="'time'" 
+               [id]="'Curfew'+ venuewsModels.id"   
+               >
+               </app-property-input-formular>
+            </div>
+
+
+            <div class="row ml-0 mr-0">
+               <app-property-input-formular class=" w-100 ml-0 mr-0 mt-1 mb-1"  [(propertyValue)]="venuewsModels.notes" [propertyName]="'Notes'"                
+               [type]="'string'" 
+               [id]="'notes'+ venuewsModels.id"        
+               >
+               </app-property-input-formular>
+            </div>
+
+            <app-contacts-view-as-related-entity [(contacts)]="contacts"></app-contacts-view-as-related-entity>             
+
+            <app-emails-views [(emails)]="venuewsModels.emails"></app-emails-views>
+
+            <app-telefon-numbers-view [(telefonNumbers)]="venuewsModels.telefonNumbers"></app-telefon-numbers-view>              
             <app-addresses-view [(addresses)]="venuewsModels.addresses"></app-addresses-view>
+
+
             <div class="row">
                <ng-container *ngIf="currentEntityID===null">
                   <button type="button" class="btn btn-primary" (click)="saveInsertedInfo()" >Add New</button>	

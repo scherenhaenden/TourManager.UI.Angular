@@ -8,9 +8,12 @@ import { SharedComponentsModule } from '../shared-components/shared-components.m
 import { SummaryComponent } from './summary/summary.component';
 import { ContacsMainComponent } from './contacs-main/contacs-main.component';
 import { RouterModule } from '@angular/router';
+import { ContacsShowAndEditingViewComponent } from './contacs-show-and-editing-view/contacs-show-and-editing-view.component';
+import { ContactsViewAsRelatedEntityComponent } from './contacts-view-as-related-entity/contacts-view-as-related-entity.component';
 
 @NgModule({
-  declarations: [ContactsComponent, SummaryComponent, ContacsMainComponent],
+  declarations: [ContactsComponent, SummaryComponent, ContacsMainComponent
+    , ContacsShowAndEditingViewComponent, ContactsViewAsRelatedEntityComponent],
   imports: [
     CommonModule,
     NgbModule,
@@ -19,6 +22,8 @@ import { RouterModule } from '@angular/router';
     FormsModule
   ],
   providers: [ContactService],
+  exports:[ ContactsComponent, SummaryComponent, ContacsMainComponent
+    , ContacsShowAndEditingViewComponent, ContactsViewAsRelatedEntityComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class ContactsModule { }

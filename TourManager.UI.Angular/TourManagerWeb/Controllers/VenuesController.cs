@@ -4,7 +4,10 @@ using TourManager.Data.Core.Configuration;
 using TourManager.Data.Core.Domain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TourManagerWeb.ApiModels;
+using TourManager.Data.Persistence;
+using TourManagerLogic.Core.Api;
+using TourManagerLogic.Core.Models;
+using TourManagerWeb.Temporal;
 
 namespace TourManagerWeb.Controllers
 {
@@ -13,12 +16,15 @@ namespace TourManagerWeb.Controllers
     public class VenuesController : ControllerBase
     {
         private readonly TourManagerContext _tourManagerContext;
+        private readonly IUnityOfWork _unityOfWork;
 
         public VenuesController(
-            TourManagerContext tourManagerContext
+            IUnityOfWork unityOfWork
+            , TourManagerContext tourManagerContext
         )
         {
-            _tourManagerContext = tourManagerContext;            
+            _unityOfWork = unityOfWork;
+            _tourManagerContext = tourManagerContext;
         }        
         
         
@@ -41,19 +47,10 @@ namespace TourManagerWeb.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("addvenue")]
-        public dynamic AddVenue(VenueModel values)
-        {            
-            /*var Venues = new Venues();
-
-            Venues.Address = values.Address;
-            Venues.contactPersons = values.ContactPersons;
-            Venues.curfView = DateTime.Now;
-            Venues.loadIn = DateTime.Now;
-            Venues.Name = values.Name;
-            Venues.TelefonNumber = values.Number;                        
-            _tourManagerContext.Venues.Add(Venues);
-            _tourManagerContext.SaveChanges();
-            return values;*/
+        public dynamic AddVenue(ProxyModelForVenues values)
+        {
+            var venuesApi = new VenuesApi(_unityOfWork);
+            venuesApi.Add((VenueModel)values);
             return null;
         }
         
@@ -73,29 +70,23 @@ namespace TourManagerWeb.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("UpdateVenue")]
-        public dynamic UpdateVenue(VenueModel values)
+        public dynamic UpdateVenue(ProxyModelForVenues values)
         {            
-           /* var Venues = new Venues();
-            Venues.Address = values.Address;
-            Venues.contactPersons = values.ContactPersons;
-            Venues.curfView = DateTime.Now;
-            Venues.loadIn = DateTime.Now;
-            Venues.Name = values.Name;
-            Venues.TelefonNumber = values.Number;
-            Venues.Id = values.Id;
-            _tourManagerContext.Venues.Update(Venues);
-            _tourManagerContext.SaveChanges();
-            return values;*/
+            var neww = new VenuesApi(_unityOfWork);
+            
+            neww.Update( (VenueModel)values);
+            
            return null;
         }
         
         
         [AllowAnonymous]
         [HttpGet]
-        [Route("GetVenuewInformation")]
+        [Route("VenuewInformation")]
         public dynamic GetVenuewInformation(int id)
         {
-            return _tourManagerContext.Venues.SingleOrDefault(x => x.Id == id);
+            var model = _tourManagerContext.Venues.SingleOrDefault(x => x.Id == id);
+            return model;
         }
     }
 }

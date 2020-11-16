@@ -1,6 +1,6 @@
 export class TelefonNumberModel {
     public id: number;
     public number: string;
-    public contactId: number;
-    public venueId: number;
+    public contactId?: number;
+    public venueId?: number;
 }

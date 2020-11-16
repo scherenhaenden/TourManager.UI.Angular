@@ -1,4 +1,5 @@
 import { ApplicationRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { TimeSpan } from 'src/app/tools/TimeSpan';
 
 @Component({
   selector: 'app-property-input-formular',
@@ -28,8 +29,6 @@ export class PropertyInputFormularComponent implements OnInit {
 
 }
 
-
-  // @Input() propertyValue: any = '';
   @Input() type = '';
   @Output() propertyValueEmit: EventEmitter<string> =   new EventEmitter();
   @Output() propertyValueChange: EventEmitter<string> =   new EventEmitter();
@@ -55,21 +54,51 @@ export class PropertyInputFormularComponent implements OnInit {
 
       if (this.type === 'time') {
 
-        try {
 
-          console.log('_propertyValue', this._swapValue);
+        try{
 
-          const final = (this._swapValue as Date).toLocaleTimeString();
+          if(this._propertyValue !== undefined || this._propertyValue !== null) {
 
-          if (this._propertyValue !== (this._swapValue as Date).toLocaleTimeString()) {
+            
 
-            this._propertyValue = final;
+            if(this._propertyValue instanceof Date) {
+
+              let myV = this._propertyValue as Date;
+
+              this._swapValue = myV.getTime();
+              
+
+
+            }
+ 
+            
+            
+            let my_val= (this._propertyValue as TimeSpan);
+
+            if(my_val.hours !==0 || my_val.minutes !== 0) {
+
+              let my_val2= (this._propertyValue as Date);
+            
+
+            }
 
           }
 
-
+          
+        } catch (e) {
+          console.error('error time:', this._swapValue);
+          console.error('error time:', e);
         }
-        catch (e) {}
+
+        try {
+
+
+         
+      
+        }
+        catch (e) {
+          console.error('error time:', e)
+        }
 
         return  this.type;
 
@@ -77,30 +106,6 @@ export class PropertyInputFormularComponent implements OnInit {
       return this.type;
     }
     return 'text';
-  }
-
-
-    // FIXME: decouple this
-    public sCdateToJsDate(cSDate: any): Date {
-      // cSDate is '2017-01-24T14:14:55.807'
-      // cSDate is '2020-10-16T15:27:05.8865805'
-      const datestr = cSDate.toString();
-      const dateAr = datestr.split('-');
-      // tslint:disable-next-line:radix
-      const year = parseInt(dateAr[0]);
-      // tslint:disable-next-line:radix
-      const month = parseInt(dateAr[1]) - 1;
-      // tslint:disable-next-line:radix
-      const day = parseInt(dateAr[2].substring(0, dateAr[2].indexOf('T')));
-      const timestring = dateAr[2].substring(dateAr[2].indexOf('T') + 1);
-      const timeAr = timestring.split(':');
-      // tslint:disable-next-line:radix
-      const hour = parseInt(timeAr[0]);
-      // tslint:disable-next-line:radix
-      const min = parseInt(timeAr[1]);
-      // tslint:disable-next-line:radix
-      const sek = parseInt(timeAr[2]);
-      const date = new Date(year, month, day, hour, min, sek, 0);
-      return date;
-  }
+  }   
+  
 }
