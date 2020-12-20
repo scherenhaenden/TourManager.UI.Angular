@@ -8,7 +8,6 @@ export class CSharpDateToJsDate {
     console.log('cSDate', cSDate);
 
 
-
     const datestr = cSDate.toString();
     const dateAr = datestr.split('-');
     // tslint:disable-next-line:radix

@@ -15,7 +15,7 @@ export class ContacsShowAndEditingViewComponent implements OnInit, DoCheck {
   ngDoCheck(): void {
     this.contactChange.emit(this.contact);
   }
-   
+
   ngOnInit(): void {
   }
 

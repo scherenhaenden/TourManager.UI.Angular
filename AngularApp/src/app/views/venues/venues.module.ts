@@ -20,7 +20,7 @@ import { RouterModule } from '@angular/router';
     ContactsModule,
     RouterModule,
   ],
-  exports:[ContactsModule],
+  exports: [ContactsModule],
   providers: [VenuesService],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

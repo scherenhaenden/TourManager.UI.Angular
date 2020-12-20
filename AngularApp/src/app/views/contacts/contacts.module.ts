@@ -22,7 +22,7 @@ import { ContactsViewAsRelatedEntityComponent } from './contacts-view-as-related
     FormsModule
   ],
   providers: [ContactService],
-  exports:[ ContactsComponent, SummaryComponent, ContacsMainComponent
+  exports: [ ContactsComponent, SummaryComponent, ContacsMainComponent
     , ContacsShowAndEditingViewComponent, ContactsViewAsRelatedEntityComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

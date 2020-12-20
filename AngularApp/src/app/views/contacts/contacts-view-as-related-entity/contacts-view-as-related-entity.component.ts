@@ -12,7 +12,7 @@ export class ContactsViewAsRelatedEntityComponent implements OnInit, DoCheck {
   @Output() contactsChange: EventEmitter<ContactModel[]> =   new EventEmitter();
 
   constructor() { }
-  ngDoCheck(): void {    
+  ngDoCheck(): void {
     this.updateValue(this.contacts);
   }
 

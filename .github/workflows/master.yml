@@ -47,7 +47,23 @@ jobs:
           tag: ${{ github.ref }}
           overwrite: true
           body: "This is my release text"
-          
+
+      # copy index.html to 404.html to serve the same file when a file is not found
+      - name: copy index.html to 404.html
+        run: | 
+            cp ./TourManager.UI.Angular/TourManagerWeb/wwwroot/index.html ./TourManager.UI.Angular/TourManagerWeb/wwwroot/404.html
+
+      # add .nojekyll file to tell GitHub pages to not treat this as a Jekyll project. (Allow files and folders starting with an underscore)
+      - name: Add .nojekyll file
+        run: touch release/wwwroot/.nojekyll
+      
+      - name: Commit wwwroot to GitHub Pages      
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: ./TourManager.UI.Angular/TourManagerWeb/wwwroot/
+.
           
           
         

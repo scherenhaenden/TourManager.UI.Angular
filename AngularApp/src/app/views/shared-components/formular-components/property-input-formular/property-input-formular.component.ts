@@ -57,34 +57,31 @@ export class PropertyInputFormularComponent implements OnInit {
 
         try{
 
-          if(this._propertyValue !== undefined || this._propertyValue !== null) {
+          if (this._propertyValue !== undefined || this._propertyValue !== null) {
 
-            
 
-            if(this._propertyValue instanceof Date) {
+            if (this._propertyValue instanceof Date) {
 
-              let myV = this._propertyValue as Date;
+              const myV = this._propertyValue as Date;
 
               this._swapValue = myV.getTime();
-              
 
 
             }
- 
-            
-            
-            let my_val= (this._propertyValue as TimeSpan);
 
-            if(my_val.hours !==0 || my_val.minutes !== 0) {
 
-              let my_val2= (this._propertyValue as Date);
-            
+            const my_val = (this._propertyValue as TimeSpan);
+
+            if (my_val.hours !== 0 || my_val.minutes !== 0) {
+
+              const my_val2 = (this._propertyValue as Date);
+
 
             }
 
           }
 
-          
+
         } catch (e) {
           console.error('error time:', this._swapValue);
           console.error('error time:', e);
@@ -93,11 +90,9 @@ export class PropertyInputFormularComponent implements OnInit {
         try {
 
 
-         
-      
         }
         catch (e) {
-          console.error('error time:', e)
+          console.error('error time:', e);
         }
 
         return  this.type;
@@ -106,6 +101,6 @@ export class PropertyInputFormularComponent implements OnInit {
       return this.type;
     }
     return 'text';
-  }   
-  
+  }
+
 }

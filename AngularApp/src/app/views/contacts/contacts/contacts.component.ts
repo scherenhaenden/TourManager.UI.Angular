@@ -13,6 +13,11 @@ export class ContactsComponent implements OnInit {
   public listOfEntites: ContactModel[] = [];
   public rowEntered = null;
 
+  public showExtendedMenu = false;
+  public selectedIrems: ContactModel[] = [];
+
+  private timerSelectionInitiated: number;
+
   constructor(private contactService: ContactService
             , private router: Router) {
 
@@ -28,8 +33,6 @@ export class ContactsComponent implements OnInit {
     const value = await this.contactService.getEntites<ContactModel[]>(50, 1);
     this.listOfEntites = value;
 
-    console.log('myInfo', value);
-
   }
 
   public addNew(): void {
@@ -39,31 +42,85 @@ export class ContactsComponent implements OnInit {
   }
 
 
-  public mouseEnterRow(that: object): void{
+  public mouseEnterRow(rowIndex: number): void {
 
-    this.rowEntered = that;
+    if(this.showExtendedMenu) {
+      return;
+    }
+
+    this.rowEntered = rowIndex;
   }
 
-  public mouseLeaveRow(that: object): void {
+  public mouseLeaveRow(rowIndex: number): void {
 
-    if (this.rowEntered === that) {
+    if(this.showExtendedMenu) {
+      return;
+    }
+
+    if (this.rowEntered === rowIndex) {
     this.rowEntered = null;
     }
   }
 
+  public isItemSelected(itemNumerId: number): boolean {
+
+    const result = this.selectedIrems.filter( x => x.id === itemNumerId )[0];
+
+    if(result === undefined) {
+      return false;
+    }
+    return true;
+  }
+
+
+  public selectItemStartTimerEitherToEditOrToShowMenu(item: ContactModel, event: Event): void {
+
+    this.timerSelectionInitiated = Date.now();
+
+    
+  }
+
+  public itemMouseRelease(item: ContactModel, event: Event): void{
+
+    const newTime = Date.now();
+
+    if (!this.showExtendedMenu) {
+      const result = newTime - this.timerSelectionInitiated;
+      if (result < 1000){
+        this.selectVenewToEdit(item);
+        return;
+      }
+      this.showDeleteMenu();
+    }
+
+    const result = this.selectedIrems.filter(x => x.id === item.id)[0];
+
+    if(result === undefined) {
+      this.selectedIrems.push(item);
+      return;
+    }
+
+    this.selectedIrems = this.selectedIrems.filter(x => x.id !== item.id);
+
+    if(this.selectedIrems.length === 0) {
+      this.showExtendedMenu = false;
+
+    }
+
+
+    
+  }
 
   public selectVenewToEdit(item: ContactModel): void {
 
-    console.log('item', item);
     const itemToEdit = this.listOfEntites
                   .filter(x => x.firstName === item.firstName)[0];
 
     const valueId = itemToEdit.id;
-
     this.router.navigate(['./contacts/summary/' + valueId]);
-
-
   }
 
-
+  public showDeleteMenu(): void {
+    this.showExtendedMenu = true;
+  }
 }

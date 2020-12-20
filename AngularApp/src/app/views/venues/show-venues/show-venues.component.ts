@@ -49,9 +49,9 @@ export class ShowVenuesComponent implements OnInit {
 
   }
 
-  //FIXME: this might be not needed anylonger
+  // FIXME: this might be not needed anylonger
   public formatTime(date: any): string {
-    //FIXME: use this as service or static?
+    // FIXME: use this as service or static?
     /*const myNewDate =  new CSharpDateToJsDate().sCdateToJsDate(date);
     return myNewDate.toLocaleTimeString();*/
     return date;
