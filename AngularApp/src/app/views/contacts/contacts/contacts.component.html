@@ -18,6 +18,7 @@
                      (mouseenter)="mouseEnterRow(i);" 
                      (mouseleave) ="mouseLeaveRow(i);"                        
                      [ngClass]="{'row-selected-color': rowEntered === i }"                     
+                     [ngClass]="{'row-selected-color': isItemSelected(item.id) }" 
                      (click)="selectItemStartTimerEitherToEditOrToShowMenu(item, $event);"
                      (keyup)="selectItemStartTimerEitherToEditOrToShowMenu(item, $event);"
                      (keydown)="selectItemStartTimerEitherToEditOrToShowMenu(item, $event);"

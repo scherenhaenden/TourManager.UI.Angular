@@ -42,22 +42,42 @@ export class ContactsComponent implements OnInit {
   }
 
 
-  public mouseEnterRow(rowIndex: number): void{
+  public mouseEnterRow(rowIndex: number): void {
+
+    if(this.showExtendedMenu) {
+      return;
+    }
 
     this.rowEntered = rowIndex;
   }
 
   public mouseLeaveRow(rowIndex: number): void {
 
+    if(this.showExtendedMenu) {
+      return;
+    }
+
     if (this.rowEntered === rowIndex) {
     this.rowEntered = null;
     }
+  }
+
+  public isItemSelected(itemNumerId: number): boolean {
+
+    const result = this.selectedIrems.filter( x => x.id === itemNumerId )[0];
+
+    if(result === undefined) {
+      return false;
+    }
+    return true;
   }
 
 
   public selectItemStartTimerEitherToEditOrToShowMenu(item: ContactModel, event: Event): void {
 
     this.timerSelectionInitiated = Date.now();
+
+    
   }
 
   public itemMouseRelease(item: ContactModel, event: Event): void{
@@ -73,8 +93,22 @@ export class ContactsComponent implements OnInit {
       this.showDeleteMenu();
     }
 
-    this.selectedIrems.push(item);
+    const result = this.selectedIrems.filter(x => x.id === item.id)[0];
 
+    if(result === undefined) {
+      this.selectedIrems.push(item);
+      return;
+    }
+
+    this.selectedIrems = this.selectedIrems.filter(x => x.id !== item.id);
+
+    if(this.selectedIrems.length === 0) {
+      this.showExtendedMenu = false;
+
+    }
+
+
+    
   }
 
   public selectVenewToEdit(item: ContactModel): void {
@@ -88,8 +122,5 @@ export class ContactsComponent implements OnInit {
 
   public showDeleteMenu(): void {
     this.showExtendedMenu = true;
-
   }
-
-
 }
