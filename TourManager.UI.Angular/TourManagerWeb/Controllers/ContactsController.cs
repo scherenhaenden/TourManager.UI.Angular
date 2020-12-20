@@ -31,7 +31,6 @@ namespace TourManagerWeb.Controllers
         {
             return _customersApi.GetAllPagination();
         }
-
         [AllowAnonymous]
         [HttpGet]
         [Route("ShowEntitiesPagination")]
@@ -49,11 +48,8 @@ namespace TourManagerWeb.Controllers
             }
 
             //FIXME: decouple this to the api
-            return _customersApi.Get(numberOfObjectsPerPage, pageNumber);
-            
+            return _customersApi.Get(numberOfObjectsPerPage, pageNumber);            
         }
-
-
 
 
         [AllowAnonymous]
