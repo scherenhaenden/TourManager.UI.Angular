@@ -63,8 +63,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
           FOLDER: ./TourManager.UI.Angular/TourManagerWeb/wwwroot/
-.
-          
-          
-        
-          
