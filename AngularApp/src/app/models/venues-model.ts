@@ -14,6 +14,6 @@ export class VenuesModels {
     public venuesToContacts: VenuesToContactsModel[] = [];
     public loadIn: Date = new Date();
     public curfView: Date = new Date();
-    public maxCapacity: number = 0;
+    public maxCapacity = 0;
     public notes = '';
 }

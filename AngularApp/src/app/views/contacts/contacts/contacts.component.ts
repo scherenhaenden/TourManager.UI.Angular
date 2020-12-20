@@ -64,21 +64,21 @@ export class ContactsComponent implements OnInit {
 
     const newTime = Date.now();
 
-    if(!this.showExtendedMenu) {
+    if (!this.showExtendedMenu) {
       const result = newTime - this.timerSelectionInitiated;
-      if(result < 1000){
+      if (result < 1000){
         this.selectVenewToEdit(item);
         return;
       }
       this.showDeleteMenu();
     }
-  
+
     this.selectedIrems.push(item);
 
   }
 
   public selectVenewToEdit(item: ContactModel): void {
-    
+
     const itemToEdit = this.listOfEntites
                   .filter(x => x.firstName === item.firstName)[0];
 
