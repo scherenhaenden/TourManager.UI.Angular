@@ -24,12 +24,14 @@ export class ContactService {
         this.genericApiService.GenericPut(url, venuewsModels).toPromise();
     }
 
-    public async getEntites<T>(): Promise<T> {
+    public async getEntites<T>(numberOfObjectsPerPage: number, pageNumber: number): Promise<T> {
 
-        const url = this.urlApiController + 'ShowEntities/';
+        let url = this.urlApiController + 'ShowEntitiesPagination/?numberOfObjectsPerPage=' + numberOfObjectsPerPage;
+        url += '&pageNumber=' + pageNumber;
 
         return this.genericApiService.GenericGet<T>(url, null).toPromise();
     }
+
 
     public async ShowInformationOfContactById<T>(id: number): Promise<T> {
 
