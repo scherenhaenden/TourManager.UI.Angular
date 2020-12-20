@@ -6,13 +6,13 @@ import { RouterModule } from '@angular/router';
 import { PropertyInputFormularComponent } from './formular-components/property-input-formular/property-input-formular.component';
 import { FormsModule } from '@angular/forms';
 import { AddressesViewComponent } from './addresses-view/addresses-view.component';
-import { TelefonNumbersViewComponent } from './telefon-numbers-view/telefon-numbers-view.component';
+import { TelephoneNumbersViewComponent } from './telephone-numbers-view/telephone-numbers-view.component';
 import { EmailsViewsComponent } from './emails-views/emails-views.component';
 
 
 @NgModule({
   declarations: [MainNavComponent, PropertyInputFormularComponent, AddressesViewComponent
-    , TelefonNumbersViewComponent, EmailsViewsComponent],
+    , TelephoneNumbersViewComponent, EmailsViewsComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -20,7 +20,7 @@ import { EmailsViewsComponent } from './emails-views/emails-views.component';
     FormsModule
   ],
   exports: [
-    MainNavComponent, PropertyInputFormularComponent, AddressesViewComponent, TelefonNumbersViewComponent
+    MainNavComponent, PropertyInputFormularComponent, AddressesViewComponent, TelephoneNumbersViewComponent
     ,EmailsViewsComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

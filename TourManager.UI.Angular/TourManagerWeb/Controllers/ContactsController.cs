@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Authorization;
@@ -32,7 +31,7 @@ namespace TourManagerWeb.Controllers
         {
             return _customersApi.GetAllPagination();
         }
-        
+
         [AllowAnonymous]
         [HttpGet]
         [Route("ShowEntitiesPagination")]
@@ -50,21 +49,13 @@ namespace TourManagerWeb.Controllers
             }
 
             //FIXME: decouple this to the api
-            var all1 = _customersApi.GetAllPagination();
-
-            var all2 = all1.OrderBy(x => x.FirstName).ToList();
+            return _customersApi.Get(numberOfObjectsPerPage, pageNumber);
             
-            
-            
-            
-            var all3 
-                = 
-                all2.Skip(numberOfObjectsPerPage * (pageNumber-1))
-                .Take(numberOfObjectsPerPage).ToList();
-            return all3;
         }
-        
-        
+
+
+
+
         [AllowAnonymous]
         [HttpPost]
         [Route("Add")]
