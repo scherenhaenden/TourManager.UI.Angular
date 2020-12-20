@@ -25,7 +25,7 @@ export class ContactsComponent implements OnInit {
 
   public async loadData(): Promise<void>  {
 
-    const value = await this.contactService.getEntites<ContactModel[]>();
+    const value = await this.contactService.getEntites<ContactModel[]>(50, 1);
     this.listOfEntites = value;
 
     console.log('myInfo', value);
