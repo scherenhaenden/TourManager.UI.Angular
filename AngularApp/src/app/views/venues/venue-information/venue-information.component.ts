@@ -19,7 +19,7 @@ export class VenueInformationComponent implements OnInit {
   public venuewsModels: VenuesModels = new VenuesModels();
   public venuewsModelEmpty: VenuesModels = new VenuesModels();
 
-  //FIME: 
+  // FIME:
   public _contacts: ContactModel [] = [];
 
   get contacts(): ContactModel [] {
@@ -49,7 +49,7 @@ export class VenueInformationComponent implements OnInit {
   public updateVenuesToContact(values: ContactModel[]): void {
 
 
-    let relatedValues: VenuesToContactsModel[] = [];
+    const relatedValues: VenuesToContactsModel[] = [];
 
     values.forEach(element => {
 
@@ -86,8 +86,8 @@ export class VenueInformationComponent implements OnInit {
 
     if (id !== null) {
       this.venuewsModels = await this.venuesService.getVenueInformation(id);
-      console.log('this.venuewsModels',this.venuewsModels);
-      console.log('this.contacts',this.contacts);
+      console.log('this.venuewsModels', this.venuewsModels);
+      console.log('this.contacts', this.contacts);
 
       this.contacts = this.venuewsModels.venuesToContacts.map(x => x.contact);
 
@@ -106,13 +106,11 @@ export class VenueInformationComponent implements OnInit {
         try {
           const result = await myValues;
 
-          
 
           this.venuewsModels = result;
 
           console.log('this.venuewsModels',  this.venuewsModels);
 
-          
 
           console.log('async/await -> ', result);
         } catch (err) {

@@ -21,7 +21,7 @@ import { EmailsViewsComponent } from './emails-views/emails-views.component';
   ],
   exports: [
     MainNavComponent, PropertyInputFormularComponent, AddressesViewComponent, TelephoneNumbersViewComponent
-    ,EmailsViewsComponent
+    , EmailsViewsComponent
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

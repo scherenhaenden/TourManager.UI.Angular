@@ -17,8 +17,13 @@
                      <tr 
                      (mouseenter)="mouseEnterRow(i);" 
                      (mouseleave) ="mouseLeaveRow(i);"                        
-                     [ngClass]="{'row-selected-color': rowEntered === i }"
-                     (click)="selectVenewToEdit(item);"
+                     [ngClass]="{'row-selected-color': rowEntered === i }"                     
+                     [ngClass]="{'row-selected-color': isItemSelected(item.id) }" 
+                     (click)="selectItemStartTimerEitherToEditOrToShowMenu(item, $event);"
+                     (keyup)="selectItemStartTimerEitherToEditOrToShowMenu(item, $event);"
+                     (keydown)="selectItemStartTimerEitherToEditOrToShowMenu(item, $event);"
+                     (mousedown)="selectItemStartTimerEitherToEditOrToShowMenu(item, $event);"
+                     (mouseup)="itemMouseRelease(item, $event);"
                      >
                      <th scope="row">{{i}}</th>
                      <td >{{item.firstName}}</td>
@@ -29,7 +34,10 @@
             </table>
             <div>
                <div class="row">
-                  <button type="button" class="btn btn-primary" (click)="addNew()" >Add</button>	             
+                  <button type="button" class="btn btn-primary" (click)="addNew()" >Add</button>	
+                   <ng-container  *ngIf="showExtendedMenu">
+                     <button type="button" class="btn btn-primary" (click)="addNew()" >Delete</button>	                     
+                   </ng-container>                          
                </div>
             </div>
          </div>

@@ -1,8 +1,8 @@
-export const MILLISECONDS_IN_A_SECOND: number = 1000;
-export const SECONDS_IN_A_MINUTE: number = 60;
-export const MINUTES_IN_AN_HOUR: number = 60;
-export const HOURS_IN_A_DAY: number = 24;
-export const DAYS_IN_A_WEEK: number = 7;
+export const MILLISECONDS_IN_A_SECOND = 1000;
+export const SECONDS_IN_A_MINUTE = 60;
+export const MINUTES_IN_AN_HOUR = 60;
+export const HOURS_IN_A_DAY = 24;
+export const DAYS_IN_A_WEEK = 7;
 
 export const MILLISECONDS_IN_A_MINUTE = MILLISECONDS_IN_A_SECOND * SECONDS_IN_A_MINUTE;
 export const MILLISECONDS_IN_AN_HOUR = MILLISECONDS_IN_A_MINUTE * MINUTES_IN_AN_HOUR;
@@ -12,24 +12,6 @@ export const MILLISECONDS_IN_A_WEEK = MILLISECONDS_IN_A_DAY * DAYS_IN_A_WEEK;
 
 export class TimeSpan {
 
-    static Subtract(date1: any, date2: any) {
-        let milliSeconds: number = date1 - date2;
-
-        return new TimeSpan(milliSeconds);
-
-    }
-
-    static Day(): TimeSpan {
-        return new TimeSpan(MILLISECONDS_IN_A_DAY);
-    }
-    static Hour(): TimeSpan { return new TimeSpan(MILLISECONDS_IN_AN_HOUR); }
-    static Week(): TimeSpan { return new TimeSpan(MILLISECONDS_IN_A_WEEK); };
-    static Month(): TimeSpan {
-        let now: any = new Date();
-        let aMonthAgo: any = new Date();
-        aMonthAgo.setMonth(aMonthAgo.getMonth() - 1);
-        return new TimeSpan(now - aMonthAgo);
-    }
 
     constructor(milliSeconds: number = 0) {
         this._seconds = 0;
@@ -39,27 +21,6 @@ export class TimeSpan {
 
         this.milliseconds = milliSeconds;
     }
-
-    addTo(date: Date): Date {
-        console.log('add ' + this.totalMilliSeconds, this);
-        date.setMilliseconds(date.getMilliseconds() + this.totalMilliSeconds);
-
-        return date;
-    }
-
-    subtructFrom(date: Date): Date {
-        date.setMilliseconds(date.getMilliseconds() - this.totalMilliSeconds);
-
-        return date;
-    }
-
-
-    private _milliseconds: number;
-    private _totalMilliSeconds: number;
-    private _seconds: number;
-    private _minutes: number;
-    private _hours: number;
-    private _days: number;
 
     get days(): number {
         return this._days;
@@ -130,35 +91,71 @@ export class TimeSpan {
     }
 
 
+    private _milliseconds: number;
+    private _totalMilliSeconds: number;
+    private _seconds: number;
+    private _minutes: number;
+    private _hours: number;
+    private _days: number;
+
+    static Subtract(date1: any, date2: any) {
+        const milliSeconds: number = date1 - date2;
+
+        return new TimeSpan(milliSeconds);
+
+    }
+
+    static Day(): TimeSpan {
+        return new TimeSpan(MILLISECONDS_IN_A_DAY);
+    }
+    static Hour(): TimeSpan { return new TimeSpan(MILLISECONDS_IN_AN_HOUR); }
+    static Week(): TimeSpan { return new TimeSpan(MILLISECONDS_IN_A_WEEK); }    static Month(): TimeSpan {
+        const now: any = new Date();
+        const aMonthAgo: any = new Date();
+        aMonthAgo.setMonth(aMonthAgo.getMonth() - 1);
+        return new TimeSpan(now - aMonthAgo);
+    }
+
+    addTo(date: Date): Date {
+        console.log('add ' + this.totalMilliSeconds, this);
+        date.setMilliseconds(date.getMilliseconds() + this.totalMilliSeconds);
+
+        return date;
+    }
+
+    subtructFrom(date: Date): Date {
+        date.setMilliseconds(date.getMilliseconds() - this.totalMilliSeconds);
+
+        return date;
+    }
+
 
     roundValue(origValue, maxValue) {
         return { modulu: origValue % maxValue, addition: Math.round(origValue / maxValue) };
     }
 
 
-
     calcMilliSeconds() {
 
-        let newMilliSecond = this.roundValue(this._milliseconds, MILLISECONDS_IN_A_SECOND);
+        const newMilliSecond = this.roundValue(this._milliseconds, MILLISECONDS_IN_A_SECOND);
         this._milliseconds = newMilliSecond.modulu;
         this._seconds += newMilliSecond.addition;
 
-        let newSecond = this.roundValue(this._seconds, SECONDS_IN_A_MINUTE);
+        const newSecond = this.roundValue(this._seconds, SECONDS_IN_A_MINUTE);
         this._seconds = newSecond.modulu;
         this._minutes += newSecond.addition;
 
-        let newminutes = this.roundValue(this._minutes, MINUTES_IN_AN_HOUR);
+        const newminutes = this.roundValue(this._minutes, MINUTES_IN_AN_HOUR);
         this._minutes = newminutes.modulu;
         this._hours += newminutes.addition;
 
-        let newDays = this.roundValue(this._hours, HOURS_IN_A_DAY);
+        const newDays = this.roundValue(this._hours, HOURS_IN_A_DAY);
         this._hours = newDays.modulu;
         this._days += newDays.addition;
 
         this._totalMilliSeconds = this.days * MILLISECONDS_IN_A_DAY + this.hours * MILLISECONDS_IN_AN_HOUR + this.minutes * MILLISECONDS_IN_A_MINUTE
             + this.seconds * MILLISECONDS_IN_A_SECOND + this.milliseconds;
     }
-
 
 
 }
