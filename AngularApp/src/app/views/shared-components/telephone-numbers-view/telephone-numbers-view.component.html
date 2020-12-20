@@ -1,0 +1,23 @@
+<div class="row ml-0 mr-0">
+               <div class="w-100 ml-0 mr-0 mt-1 mb-1">
+                  <div class="row">
+                     <div class="col-md-6">
+                        Telephone Numbers:
+                     </div>
+                     <div class="col-md-6">
+                        <button type="button" class="btn btn-secondary btn-lg" (click)="addTelephoneNumberInput()">+</button>                  
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <ng-container *ngFor="let item of telephoneNumbers; index as i;">
+               <div class="row ml-0 mr-0">
+               <button type="button" class="btn btn-secondary btn-lg floatting-button" (click)="deleteTelephoneSelected(item)">-</button>
+                  <app-property-input-formular class=" w-100 ml-0 mr-0 mt-1 mb-1" [propertyName]="'Telephone Number'" [(propertyValue)]="item.number"
+                  (propertyValueEmit)="updateValue($event, item)"
+                  [type]="'string'" 
+                  [id]="'contact.telephoneNumbers' + i"           
+                  >
+                  </app-property-input-formular>
+               </div>
+            </ng-container>     

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ContactModel } from 'src/app/models/contact-model';
-import { TelefonNumberModel } from 'src/app/models/telefon-number-model';
+import { TelephoneNumberModel } from 'src/app/models/telephone-number-model';
 import { EmailModel } from 'src/app/models/email-model';
 import { AddressModel } from 'src/app/models/address-model';
 import { ContactService } from 'src/app/services/contacts-service';
@@ -56,8 +56,8 @@ export class SummaryComponent implements OnInit {
     }
   }
 
-  public addTelefonNumberInput(): void {
-    this.contact.telefonNumbers.push(new TelefonNumberModel());
+  public addTelephoneNumberInput(): void {
+    this.contact.telephoneNumbers.push(new TelephoneNumberModel());
 
   }
 
@@ -92,10 +92,10 @@ export class SummaryComponent implements OnInit {
     this.contactService.update(this.contact);
   }
 
-  public deleteTelefonSelected(entity: TelefonNumberModel): void {
+  public deleteTelephoneSelected(entity: TelephoneNumberModel): void {
 
-    const result = this.contact.telefonNumbers.filter(x => x.id !== entity.id);
-    this.contact.telefonNumbers = result;
+    const result = this.contact.telephoneNumbers.filter(x => x.id !== entity.id);
+    this.contact.telephoneNumbers = result;
     this.contactService.update(this.contact);
   }
 
