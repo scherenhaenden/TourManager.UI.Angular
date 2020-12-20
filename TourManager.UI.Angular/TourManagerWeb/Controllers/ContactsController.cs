@@ -36,12 +36,32 @@ namespace TourManagerWeb.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("ShowEntitiesPagination")]
-        public List<ContactModel> ShowVenuesPagination()
+        public List<ContactModel> ShowVenuesPagination(int numberOfObjectsPerPage, int pageNumber)
         {
+
+            if (numberOfObjectsPerPage > 50)
+            {
+                numberOfObjectsPerPage = 50;
+            }
+
+            if (pageNumber < 1)
+            {
+                pageNumber = 1;
+            }
+
+            //FIXME: decouple this to the api
             var all1 = _customersApi.GetAllPagination();
+
+            var all2 = all1.OrderBy(x => x.FirstName).ToList();
             
-            //var all2 = all1.OrderBy(x=>x.FirstName)
-            return all1;
+            
+            
+            
+            var all3 
+                = 
+                all2.Skip(numberOfObjectsPerPage * (pageNumber-1))
+                .Take(numberOfObjectsPerPage).ToList();
+            return all3;
         }
         
         
